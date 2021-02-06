@@ -1,0 +1,17 @@
+RewriteOptions inherit
+RewriteEngine On
+RewriteCond %{SERVER_PORT} 80
+RewriteCond %{HTTPS} !=on
+RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule ^(.*)$ index.php?page=$1 [QSA,L]
+<Files 403.shtml>
+order allow,deny
+allow from all
+</Files>
+
+<IfModule mime_module>
+  AddType application/x-httpd-ea-php71 .php .php7 .phtml
+</IfModule>
